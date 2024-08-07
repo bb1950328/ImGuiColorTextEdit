@@ -877,7 +877,7 @@ void TextEditor::Render()
 
 	assert(mLineBuffer.empty());
 
-	auto contentSize = ImGui::GetWindowContentRegionMax();
+	auto contentSize = ImGui::GetContentRegionAvail();
 	auto drawList = ImGui::GetWindowDrawList();
 	float longest(mTextStart);
 
@@ -1161,7 +1161,7 @@ void TextEditor::Render(const char* aTitle, const ImVec2& aSize, bool aBorder)
 	if (mHandleKeyboardInputs)
 	{
 		HandleKeyboardInputs();
-		ImGui::PushTabStop(true);
+		ImGui::PushItemFlag(ImGuiItemFlags_NoTabStop, false);
 	}
 
 	if (mHandleMouseInputs)
@@ -1171,7 +1171,7 @@ void TextEditor::Render(const char* aTitle, const ImVec2& aSize, bool aBorder)
 	Render();
 
 	if (mHandleKeyboardInputs)
-		ImGui::PopTabStop();
+		ImGui::PopItemFlag();
 
 	if (!mIgnoreImGuiChild)
 		ImGui::EndChild();
